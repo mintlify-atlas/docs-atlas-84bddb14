@@ -1,0 +1,85 @@
+---
+title: "Ollama (Local)"
+description: "Run Blueprint translation entirely on your machine using Ollama. No API key required, no data leaves your system."
+---
+
+Ollama lets you run open-source LLMs locally. Because all inference happens on your machine, your Blueprint code and source files never leave your system — making it a strong choice for proprietary projects or air-gapped environments.
+
+<Note>
+  Ollama is free to use. You pay nothing per request, but you need a machine capable of running the model you choose. For `qwen3:32b`, a GPU with at least 24 GB of VRAM is recommended.
+</Note>
+
+## Setup
+
+<Steps>
+  <Step title="Install Ollama">
+    Download and install Ollama from [ollama.com](https://ollama.com). It runs as a background service on your machine.
+  </Step>
+  <Step title="Pull a model">
+    Open a terminal and pull the default model:
+
+    ```bash
+    ollama pull qwen3:32b
+    ```
+
+    You can substitute any model name from the [Ollama model library](https://ollama.com/library).
+  </Step>
+  <Step title="Confirm Ollama is running">
+    Ollama starts automatically on install and listens on `http://localhost:11434` by default. You can verify it's running by visiting that address in a browser — you should see `Ollama is running`.
+  </Step>
+  <Step title="Configure in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → Ollama**. Set the **Model Name** to the model you pulled (e.g., `qwen3:32b`).
+  </Step>
+  <Step title="Select Ollama as your provider">
+    Under **Node to Code | LLM Provider**, set **Provider** to **Ollama**.
+  </Step>
+</Steps>
+
+## Configuration
+
+All Ollama settings are under **Node to Code | LLM Services | Ollama** in Project Settings.
+
+### Connection
+
+| Setting | Default | Description |
+|---|---|---|
+| Ollama Endpoint | `http://localhost:11434` | Base URL for the Ollama API. Change this if Ollama is running on a different host or port. |
+| Model Name | `qwen3:32b` | The name of the model to use, exactly as it appears after `ollama pull`. |
+
+### Behavior
+
+| Setting | Default | Description |
+|---|---|---|
+| Use System Prompts | `false` | Enable if your model supports system prompts. When disabled, the system prompt is merged into the first user message. |
+| Prepended Model Command | _(empty)_ | Text prepended to every user message. Use model-specific commands like `/no_think` to disable extended thinking on reasoning models. |
+| Keep Alive Duration | `3600` | Seconds to keep the model loaded in memory after a request. Set to `-1` to keep it loaded indefinitely. |
+
+### Generation
+
+| Setting | Default | Description |
+|---|---|---|
+| Temperature | `0.0` | Controls output randomness. `0.0` is fully deterministic. |
+| Max Tokens | `8192` | Maximum tokens to generate. Set to `-1` for unlimited. |
+| Top P | `0.5` | Nucleus sampling threshold. |
+| Top K | `40` | Limits tokens considered per step. |
+| Min P | `0.05` | Minimum probability threshold relative to the top token. |
+| Repeat Penalty | `1.1` | Penalty for repeating tokens. |
+
+### Context
+
+| Setting | Default | Description |
+|---|---|---|
+| Context Window | `8192` | Token limit for the context window. For larger Blueprint graphs or when using Translation Depth, increase this to 16k–32k or higher. |
+
+### Advanced
+
+| Setting | Default | Description |
+|---|---|---|
+| Mirostat Mode | `0` | Mirostat sampling mode. `0` = disabled, `1` = Mirostat, `2` = Mirostat 2.0. |
+| Mirostat Eta | `0.1` | Mirostat learning rate. Lower values make adjustments more slowly. |
+| Mirostat Tau | `5.0` | Mirostat target entropy. Lower values increase focus. |
+| Random Seed | `0` | Seed for generation. `0` = random; set a fixed value for reproducible output. |
+
+<Tip>
+  If you're translating large or deeply nested Blueprint graphs, increase the **Context Window** setting significantly. The default of 8192 tokens may be too small for complex graphs, causing truncated or incomplete translations.
+</Tip>

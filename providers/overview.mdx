@@ -1,0 +1,59 @@
+---
+title: "LLM Providers Overview"
+description: "Choose between cloud-hosted and local LLM providers to power Blueprint translation in Node to Code."
+---
+
+Node to Code supports six LLM providers split into two categories: **cloud providers** that require an API key and send requests over the internet, and **local providers** that run entirely on your machine with no data leaving your system.
+
+## Selecting a provider
+
+Go to **Edit → Project Settings → Plugins → Node to Code** and set the **LLM Provider** field to your preferred option.
+
+Each provider has its own settings section under **Node to Code | LLM Services** in the same panel, where you can enter API keys, choose a model, and adjust provider-specific options.
+
+## Cloud providers
+
+Cloud providers offer the strongest models available today. They require an account and API key from the respective service, and each request is billed based on token usage.
+
+<CardGroup cols={2}>
+  <Card title="OpenAI" icon="brain" href="/providers/openai">
+    GPT-4.1, o3, o4 Mini, and more. o4 Mini is recommended for the best price-to-performance ratio.
+  </Card>
+  <Card title="Anthropic Claude" icon="robot" href="/providers/anthropic">
+    Claude 4 Sonnet is the default provider and model — strong results across a wide range of Blueprint graphs.
+  </Card>
+  <Card title="Google Gemini" icon="sparkles" href="/providers/gemini">
+    Gemini 2.5 Flash recommended for price-performance. Gemini 2.5 Pro for maximum capability.
+  </Card>
+  <Card title="DeepSeek" icon="microchip" href="/providers/deepseek">
+    DeepSeek R1 is a cost-effective reasoning model. Strong results at a competitive price point.
+  </Card>
+</CardGroup>
+
+## Local providers
+
+Local providers run models directly on your machine. No API key is required and no data is sent to external servers — ideal for proprietary codebases or air-gapped environments.
+
+<CardGroup cols={2}>
+  <Card title="Ollama" icon="server" href="/providers/ollama">
+    Run open-source models locally via Ollama. Default model: `qwen3:32b`. Full configuration control including context window, sampling parameters, and more.
+  </Card>
+  <Card title="LM Studio" icon="desktop" href="/providers/lm-studio">
+    Load any GGUF model in LM Studio and connect via its local OpenAI-compatible server. Default endpoint: `http://localhost:1234`.
+  </Card>
+</CardGroup>
+
+## Provider comparison
+
+| Provider | API key required | Runs locally | Default model |
+|---|---|---|---|
+| OpenAI | Yes | No | o4 Mini |
+| Anthropic | Yes | No | Claude 4 Sonnet |
+| Gemini | Yes | No | Gemini 2.5 Flash Preview |
+| DeepSeek | Yes | No | DeepSeek R1 |
+| Ollama | No | Yes | qwen3:32b |
+| LM Studio | No | Yes | qwen3-32b |
+
+<Tip>
+  If you're just getting started, Anthropic Claude 4 Sonnet is the default and works well out of the box. If you want zero cost and full privacy, try Ollama or LM Studio.
+</Tip>

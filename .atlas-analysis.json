@@ -1,0 +1,95 @@
+{
+  "projectType": "framework",
+  "projectName": "Node to Code",
+  "projectDescription": "An Unreal Engine editor plugin that translates Blueprint graphs into clean C++ (and other languages) in seconds using LLM providers like OpenAI, Anthropic, Gemini, DeepSeek, Ollama, and LM Studio.",
+  "theme": "palm",
+  "primaryColor": "#0453ce",
+  "lightColor": "#243a5a",
+  "darkColor": "#040404",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "LLM Providers",
+            "pages": [
+              "providers/overview",
+              "providers/openai",
+              "providers/anthropic",
+              "providers/gemini",
+              "providers/deepseek",
+              "providers/ollama",
+              "providers/lm-studio"
+            ]
+          },
+          {
+            "group": "Using Node to Code",
+            "pages": [
+              "guides/translating-blueprints",
+              "guides/output-languages",
+              "guides/translation-depth",
+              "guides/reference-source-files",
+              "guides/saving-translations"
+            ]
+          },
+          {
+            "group": "Configuration & Customization",
+            "pages": [
+              "configuration/plugin-settings",
+              "configuration/code-editor-themes",
+              "configuration/api-key-management"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/n2c-json-schema",
+              "reference/supported-node-types",
+              "reference/changelog",
+              "reference/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "One-click Blueprint-to-C++ translation using LLMs",
+    "Support for multiple LLM providers: OpenAI, Anthropic Claude, Google Gemini, DeepSeek, Ollama, LM Studio",
+    "Multi-language output: C++, C#, Python, JavaScript, Swift, Pseudocode",
+    "Configurable nested graph translation depth (up to 5 levels)",
+    "Custom C++ reference files to guide translation style",
+    "Efficient bespoke JSON serialization reducing token usage by 60-90%",
+    "Integrated dockable code editor with syntax highlighting and multiple themes",
+    "Automatic local saving of every translation",
+    "100% local/private translation via Ollama or LM Studio"
+  ],
+  "publicApiSurface": [
+    "UN2CSettings::GetN2CSettings()",
+    "UN2CSettings::GetActiveApiKey()",
+    "UN2CSettings::GetActiveModel()",
+    "UN2CSettings::GetCurrentInputCost()",
+    "UN2CSettings::GetCurrentOutputCost()",
+    "UN2CSettings::CopyToClipboard(const FString& Text)",
+    "FN2CNodeCollector::Get() / CollectNodesFromGraph()",
+    "FN2CNodeTranslator::Get() / GenerateN2CStruct()",
+    "FN2CSerializer::ToJson(const FN2CBlueprint&)",
+    "FN2CSerializer::FromJson(const FString&, FN2CBlueprint&)",
+    "FN2CEditorIntegration::Get() / Initialize() / Shutdown()",
+    "IN2CLLMService::Initialize() / SendRequest() / GetProviderType()",
+    "UN2CSystemPromptManager::GetSystemPrompt() / GetLanguageSpecificPrompt() / MergePrompts()",
+    "EN2CLLMProvider (OpenAI, Anthropic, Gemini, Ollama, DeepSeek, LMStudio)",
+    "EN2CAnthropicModel, EN2COpenAIModel, EN2CGeminiModel, EN2CDeepSeekModel",
+    "FN2CBlueprint / FN2CGraph / FN2CNodeDefinition / FN2CPinDefinition",
+    "FN2CTranslationResponse / FN2CGraphTranslation / FN2CGeneratedCode"
+  ]
+}

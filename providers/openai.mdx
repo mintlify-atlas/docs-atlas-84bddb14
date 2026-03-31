@@ -1,0 +1,49 @@
+---
+title: "OpenAI"
+description: "Configure Node to Code to use OpenAI's GPT and o-series models for Blueprint translation."
+---
+
+## Getting an API key
+
+<Steps>
+  <Step title="Create an OpenAI account">
+    Go to [platform.openai.com](https://platform.openai.com) and sign in or create an account.
+  </Step>
+  <Step title="Generate an API key">
+    Navigate to **API keys** in the left sidebar and click **Create new secret key**. Copy the key — you won't be able to see it again.
+  </Step>
+  <Step title="Add the key in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → OpenAI** and paste your key into the **API Key** field.
+  </Step>
+  <Step title="Select OpenAI as your provider">
+    Under **Node to Code | LLM Provider**, set **Provider** to **OpenAI**.
+  </Step>
+</Steps>
+
+## Model selection
+
+Set the model under **Node to Code | LLM Services | OpenAI → OpenAI Model**.
+
+| Display name | Model ID | Notes |
+|---|---|---|
+| o4 Mini | `o4-mini` | Recommended — best price/performance |
+| GPT-4.1 | `gpt-4.1` | |
+| o3 | `o3` | |
+| o3 Mini | `o3-mini` | |
+| o1 | `o1` | |
+| o1 Preview | `o1-preview-2024-09-12` | Does not support system prompts |
+| o1 Mini | `o1-mini-2024-09-12` | Does not support system prompts |
+| GPT-4o | `gpt-4o-2024-08-06` | |
+| GPT-4o Mini | `gpt-4o-mini-2024-07-18` | |
+
+<Tip>
+  **o4 Mini** is the recommended default. It delivers strong translation quality at a fraction of the cost of the larger reasoning models.
+</Tip>
+
+## System prompt support
+
+<Warning>
+  **o1 Preview** and **o1 Mini** do not support system prompts. The plugin handles this automatically by merging the system prompt into the user message for those models.
+
+  All other OpenAI models — including o1, o3, o3 Mini, o4 Mini, GPT-4.1, GPT-4o, and GPT-4o Mini — support system (developer) prompts.
+</Warning>

@@ -1,0 +1,54 @@
+---
+title: "Translation depth"
+description: "Control how many levels of nested function and macro calls are included in a translation."
+---
+
+Translation depth controls whether Node to Code follows calls to other functions or macros and includes their graphs in the translation. The default is `0`, which translates only the graph you triggered the translation from.
+
+## How depth works
+
+When your graph calls a function or macro defined in the same Blueprint, Node to Code can optionally follow that call and translate the inner graph as well. Each level of nesting adds one to the depth count.
+
+| Depth | What gets translated |
+|-------|---------------------|
+| `0` | Only the selected or active graph |
+| `1` | The active graph plus any functions/macros it calls directly |
+| `2` | The above, plus any functions/macros those call |
+| `3–5` | Each additional level follows one more layer of calls |
+
+## Configuring translation depth
+
+<Steps>
+  <Step title="Open Project Settings">
+    Go to **Edit → Project Settings** in the Unreal Engine menu bar.
+  </Step>
+  <Step title="Navigate to Node to Code">
+    Select **Plugins → Node to Code** from the left sidebar.
+  </Step>
+  <Step title="Set the depth">
+    Under **Code Generation**, change **Max Translation Depth** to a value between `0` and `5`.
+  </Step>
+</Steps>
+
+## Example
+
+Suppose you have a function `HandleDamage` that calls two helper functions: `ApplyStatusEffect` and `UpdateHealthUI`.
+
+- At **depth 0**, only `HandleDamage` is translated. The calls to the helpers appear as function calls in the output, but their implementations are not included.
+- At **depth 2**, `HandleDamage`, `ApplyStatusEffect`, and `UpdateHealthUI` are all translated. If `ApplyStatusEffect` itself calls another function, that would also be included.
+
+## Cost and performance impact
+
+<Warning>
+  Higher translation depth significantly increases the number of tokens sent to the LLM. Each additional level can multiply the input size depending on how many nested calls exist. Watch your costs carefully when increasing depth.
+</Warning>
+
+The source code comment on `TranslationDepth` puts it plainly: *"This setting can greatly impact costs and context window utilization, so be mindful!"*
+
+Some LLMs also have context window limits. Very deep translations of complex Blueprint hierarchies may exceed those limits and fail or produce incomplete output.
+
+## Recommended approach
+
+<Tip>
+  Start at depth `0`. Only increase depth when you specifically need to understand or reimplement the full call hierarchy. Depth `1` is often enough to get the context you need without a large cost increase.
+</Tip>

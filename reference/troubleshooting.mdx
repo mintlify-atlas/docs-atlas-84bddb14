@@ -1,0 +1,136 @@
+---
+title: "Troubleshooting"
+description: "Solutions for common issues with Node to Code."
+---
+
+<AccordionGroup>
+
+<Accordion title="The Node to Code button is not visible in the Blueprint Editor toolbar">
+  The plugin may not be enabled. To fix this:
+
+  <Steps>
+    <Step title="Open the Plugins window">
+      Go to **Edit → Plugins** in the Unreal Editor menu bar.
+    </Step>
+    <Step title="Search for Node to Code">
+      Type "Node to Code" in the search box and verify the checkbox is enabled.
+    </Step>
+    <Step title="Restart the editor">
+      Click **Restart Now** when prompted. The toolbar button will appear after the restart.
+    </Step>
+  </Steps>
+
+  <Note>
+    Node to Code only supports **Win64** and **Mac** platforms. It will not load on Linux or console targets.
+  </Note>
+</Accordion>
+
+<Accordion title="Translation fails with an API error">
+  Check the following in order:
+
+  1. **Verify your API key** — Go to **Edit → Project Settings → Node to Code → LLM Services → [Provider] → API Key** and confirm the key is entered correctly with no extra spaces.
+  2. **Verify the correct provider is selected** — The active provider in **LLM Provider** must match the API key you entered.
+  3. **Check your internet connection** — Cloud providers (OpenAI, Anthropic, Gemini, DeepSeek) require an active internet connection.
+  4. **Check your API account** — Ensure your account has credits and the selected model is available on your plan.
+
+  For more detail, set **Logging → Min Severity** to `Info` and check the **Output Log** in the Unreal Editor for the full error message.
+</Accordion>
+
+<Accordion title="Translation returns empty or malformed output">
+  This can happen when the Blueprint is very complex or the model has trouble with the schema. Try these steps:
+
+  1. **Reduce translation depth** — Set **Translation Depth** to `0` (default). Higher depths send significantly more tokens and can exceed context windows.
+  2. **Test with a simpler Blueprint** — Try a small function with just a few nodes to confirm the pipeline works.
+  3. **Switch to a more capable model** — For complex Blueprints, try Claude 4 Sonnet or Gemini 2.5 Pro instead of a smaller/cheaper model.
+  4. **Check for unsupported node types** — Uncommon node types may produce unexpected output. See [Supported Node Types](/reference/supported-node-types).
+</Accordion>
+
+<Accordion title="Translation is slow or times out">
+  LLM responses can take time, especially for large Blueprints or reasoning models. The request timeout is set to **3600 seconds** (1 hour) to accommodate complex translations.
+
+  To speed things up:
+
+  - **Reduce translation depth** — Each additional depth level can multiply token count.
+  - **Select fewer nodes** — Translate a subset of your Blueprint at a time rather than the entire graph.
+  - **Use a faster model** — Gemini 2.5 Flash and o4 Mini are optimized for speed and cost without sacrificing quality.
+  - **Remove large reference files** — Large reference source files increase prompt size. Check **Estimated Reference File Tokens** in settings.
+</Accordion>
+
+<Accordion title="Token usage and costs are higher than expected">
+  Several settings directly impact cost:
+
+  - **Translation Depth** — Each level multiplies the amount of Blueprint data sent. Keep at `0` unless you specifically need nested translation.
+  - **Reference Source Files** — Large `.h`/`.cpp` files add significant tokens. The **Estimated Reference File Tokens** field in settings shows the current total. Remove files you don't need.
+  - **Model selection** — Reasoning models (o1, o3, DeepSeek R1) use more output tokens. For most translations, o4 Mini, Gemini 2.5 Flash, or Claude 4 Sonnet offer the best cost-to-quality ratio.
+
+  For zero-cost translation, use [Ollama](/providers/ollama) or [LM Studio](/providers/lm-studio) with a local model.
+</Accordion>
+
+<Accordion title="Ollama is not connecting">
+  <Steps>
+    <Step title="Confirm Ollama is running">
+      Open a terminal and run `ollama serve`. If it is already running, you will see a message indicating the server is active.
+    </Step>
+    <Step title="Pull the model">
+      Run `ollama pull qwen3:32b` (or whichever model you have configured) to ensure the model is downloaded locally.
+    </Step>
+    <Step title="Verify the endpoint">
+      In **Project Settings → Node to Code → LLM Services → Ollama**, confirm the host and port match the Ollama server (default: `http://localhost:11434`).
+    </Step>
+    <Step title="Check firewall rules">
+      If Ollama is running on a remote machine, ensure the port is reachable from the machine running Unreal Editor.
+    </Step>
+  </Steps>
+</Accordion>
+
+<Accordion title="LM Studio is not connecting">
+  <Steps>
+    <Step title="Open LM Studio and load a model">
+      Launch LM Studio, go to the **My Models** tab, and load the model you want to use.
+    </Step>
+    <Step title="Start the local server">
+      In LM Studio, navigate to the **Local Server** tab and click **Start Server**.
+    </Step>
+    <Step title="Verify the endpoint">
+      The default server endpoint is `http://localhost:1234`. Confirm this matches the **Server Endpoint** setting in **Project Settings → Node to Code → LLM Services → LM Studio**.
+    </Step>
+    <Step title="Confirm the model name">
+      Set the **Model Name** in plugin settings to exactly match the model identifier shown in LM Studio.
+    </Step>
+  </Steps>
+</Accordion>
+
+<Accordion title="The plugin is not available on my platform">
+  Node to Code supports **Win64** and **Mac** only. This is defined in `NodeToCode.uplugin`:
+
+  ```json
+  "PlatformAllowList": ["Win64", "Mac"]
+  ```
+
+  It will not load on Linux, Android, iOS, or console platforms. If you need to ship to those platforms, the plugin is editor-only and will not be included in packaged builds regardless.
+</Accordion>
+
+</AccordionGroup>
+
+---
+
+## Enabling detailed logging
+
+To see full debug output in the Unreal **Output Log**:
+
+1. Go to **Edit → Project Settings → Node to Code → Logging**
+2. Set **Min Severity** to `Info`
+3. Reproduce the issue and check the **Output Log** (`Window → Output Log`) for `[NodeToCode]` entries
+
+---
+
+## Getting more help
+
+<CardGroup cols={2}>
+  <Card title="Discord Community" icon="discord" href="https://discord.gg/4t3Syvk4AG">
+    Ask questions and get help from the community and developer
+  </Card>
+  <Card title="GitHub Issues" icon="github" href="https://github.com/protospatial/NodeToCode/issues">
+    Report bugs or request features on GitHub
+  </Card>
+</CardGroup>

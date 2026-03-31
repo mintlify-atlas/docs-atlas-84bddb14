@@ -1,0 +1,234 @@
+---
+title: "N2C JSON Schema"
+description: "The bespoke JSON format Node to Code uses to serialize Blueprint graphs for LLM processing."
+---
+
+Node to Code converts Blueprint graphs into a compact JSON format called **N2CStruct** before sending them to an LLM. This schema reduces token usage by 60–90% compared to Unreal Engine's verbose Blueprint text format, keeping translation fast and cost-effective.
+
+## Top-level structure
+
+```json
+{
+  "version": "1.0.0",
+  "metadata": {
+    "Name": "MyCharacter",
+    "BlueprintType": "Normal",
+    "BlueprintClass": "AMyCharacter"
+  },
+  "graphs": [ ... ],
+  "structs": [ ... ],
+  "enums": [ ... ]
+}
+```
+
+<ParamField path="version" type="string">
+  Always `"1.0.0"` in the current spec.
+</ParamField>
+
+<ParamField path="metadata.Name" type="string">
+  The Blueprint asset name.
+</ParamField>
+
+<ParamField path="metadata.BlueprintType" type="string">
+  One of: `Normal`, `Const`, `MacroLibrary`, `Interface`, `LevelScript`, `FunctionLibrary`.
+</ParamField>
+
+<ParamField path="metadata.BlueprintClass" type="string">
+  The parent class this Blueprint extends (e.g. `ACharacter`).
+</ParamField>
+
+<ParamField path="graphs" type="array">
+  Array of graph objects — one per function, event graph, macro, etc.
+</ParamField>
+
+<ParamField path="structs" type="array">
+  Blueprint-defined structs referenced by this Blueprint.
+</ParamField>
+
+<ParamField path="enums" type="array">
+  Blueprint-defined enums referenced by this Blueprint.
+</ParamField>
+
+---
+
+## Graph object
+
+```json
+{
+  "name": "ExecuteAttack",
+  "graph_type": "Function",
+  "nodes": [ ... ],
+  "flows": {
+    "execution": ["N1->N2->N3", "N3->N4"],
+    "data": {
+      "N2.P3": "N1.P2",
+      "N4.P1": "N3.P4"
+    }
+  }
+}
+```
+
+<ParamField path="name" type="string">
+  The graph name as shown in the Blueprint editor.
+</ParamField>
+
+<ParamField path="graph_type" type="string">
+  One of: `EventGraph`, `Function`, `Composite`, `Macro`, `Construction`, `Animation`.
+</ParamField>
+
+<ParamField path="flows.execution" type="array of strings">
+  Each string is a chain of node IDs connected by `->`, e.g. `"N1->N2->N3"`.
+</ParamField>
+
+<ParamField path="flows.data" type="object">
+  Maps output pin references (`"NodeID.PinID"`) to input pin references. Example: `"N2.P3": "N1.P2"` means N1's output pin P2 feeds into N2's input pin P3.
+</ParamField>
+
+---
+
+## Node object
+
+```json
+{
+  "id": "N1",
+  "type": "call_function",
+  "name": "Print String",
+  "member_parent": "KismetSystemLibrary",
+  "member_name": "PrintString",
+  "comment": "Optional node comment",
+  "pure": false,
+  "latent": false,
+  "input_pins": [ ... ],
+  "output_pins": [ ... ]
+}
+```
+
+<ParamField path="id" type="string">
+  Short sequential ID, e.g. `"N1"`, `"N2"`. Used for flow references.
+</ParamField>
+
+<ParamField path="type" type="string">
+  The node type string (e.g. `call_function`, `branch`, `variable_get`). See [Supported Node Types](/reference/supported-node-types).
+</ParamField>
+
+<ParamField path="member_parent" type="string">
+  The class or library that owns the function/variable (e.g. `KismetSystemLibrary`, `GameplayStatics`).
+</ParamField>
+
+<ParamField path="member_name" type="string">
+  The function or variable name being accessed.
+</ParamField>
+
+<ParamField path="pure" type="boolean">
+  `true` for pure (const, no execution pin) functions.
+</ParamField>
+
+<ParamField path="latent" type="boolean">
+  `true` for latent/async nodes (e.g. `Delay`, async task nodes).
+</ParamField>
+
+---
+
+## Pin object
+
+```json
+{
+  "id": "P1",
+  "name": "InString",
+  "type": "String",
+  "sub_type": "",
+  "default_value": "Hello World",
+  "connected": false,
+  "is_reference": false,
+  "is_const": false,
+  "is_array": false,
+  "is_map": false,
+  "is_set": false
+}
+```
+
+<ParamField path="id" type="string">
+  Short local ID scoped to the node, e.g. `"P1"`.
+</ParamField>
+
+<ParamField path="type" type="string">
+  The pin type. See the full list in [Supported Node Types](/reference/supported-node-types#pin-types).
+</ParamField>
+
+<ParamField path="sub_type" type="string">
+  Optional subtype for `Object`, `Struct`, `Enum`, `Class`, etc. (e.g. `"ACharacter"`).
+</ParamField>
+
+<ParamField path="default_value" type="string">
+  The pin's default value when not connected.
+</ParamField>
+
+<ParamField path="connected" type="boolean">
+  Whether this pin has an active connection in the graph.
+</ParamField>
+
+---
+
+## Complete example
+
+This is a minimal Blueprint with a single function that calls `PrintString`:
+
+```json
+{
+  "version": "1.0.0",
+  "metadata": {
+    "Name": "MyActor",
+    "BlueprintType": "Normal",
+    "BlueprintClass": "AActor"
+  },
+  "graphs": [
+    {
+      "name": "SayHello",
+      "graph_type": "Function",
+      "nodes": [
+        {
+          "id": "N1",
+          "type": "function_entry",
+          "name": "SayHello",
+          "member_parent": "",
+          "member_name": "SayHello",
+          "comment": "",
+          "pure": false,
+          "latent": false,
+          "input_pins": [],
+          "output_pins": [
+            { "id": "P1", "name": "then", "type": "Exec", "sub_type": "", "default_value": "", "connected": true, "is_reference": false, "is_const": false, "is_array": false, "is_map": false, "is_set": false }
+          ]
+        },
+        {
+          "id": "N2",
+          "type": "call_function",
+          "name": "Print String",
+          "member_parent": "KismetSystemLibrary",
+          "member_name": "PrintString",
+          "comment": "",
+          "pure": false,
+          "latent": false,
+          "input_pins": [
+            { "id": "P1", "name": "Exec", "type": "Exec", "sub_type": "", "default_value": "", "connected": true, "is_reference": false, "is_const": false, "is_array": false, "is_map": false, "is_set": false },
+            { "id": "P2", "name": "InString", "type": "String", "sub_type": "", "default_value": "Hello!", "connected": false, "is_reference": false, "is_const": false, "is_array": false, "is_map": false, "is_set": false }
+          ],
+          "output_pins": [
+            { "id": "P3", "name": "then", "type": "Exec", "sub_type": "", "default_value": "", "connected": false, "is_reference": false, "is_const": false, "is_array": false, "is_map": false, "is_set": false }
+          ]
+        }
+      ],
+      "flows": {
+        "execution": ["N1->N2"],
+        "data": {}
+      }
+    }
+  ],
+  "structs": [],
+  "enums": []
+}
+```
+
+<Tip>
+  You can copy the raw N2C JSON for any Blueprint to your clipboard using the **Copy JSON** button in the Blueprint Editor toolbar. This is useful for debugging or sharing Blueprint logic as text.
+</Tip>

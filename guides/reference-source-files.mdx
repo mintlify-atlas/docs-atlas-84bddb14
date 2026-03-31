@@ -1,0 +1,57 @@
+---
+title: "Reference source files"
+description: "Supply your own C++ source files to guide the LLM's coding style and conventions."
+---
+
+Reference source files let you provide your own `.h` and `.cpp` files as context when Node to Code sends a request to the LLM. The LLM uses these files as style guidance, matching your project's naming conventions, patterns, and architectural choices in the translated output.
+
+## How it works
+
+When you add reference files, Node to Code reads their contents and includes them in the LLM prompt alongside the Blueprint JSON. The LLM can then produce output that mirrors your existing code — using the same class hierarchies, naming patterns, and coding conventions your project already follows.
+
+## Adding reference files
+
+<Steps>
+  <Step title="Open Project Settings">
+    Go to **Edit → Project Settings** in the Unreal Engine menu bar.
+  </Step>
+  <Step title="Navigate to Node to Code">
+    Select **Plugins → Node to Code** from the left sidebar.
+  </Step>
+  <Step title="Add files">
+    Under **Code Generation**, find **Reference Source Files** and add your `.h` or `.cpp` files using the file picker. The picker filters for `C++ Files (*.h;*.cpp)`.
+  </Step>
+  <Step title="Check the token estimate">
+    The **Estimated Reference File Tokens** field updates automatically after you add files. This shows roughly how many tokens your reference files will consume per request.
+  </Step>
+</Steps>
+
+## Token estimate
+
+The token count displayed next to your reference files is calculated by dividing the total character count of all added files by 4 — a standard approximation for LLM token counting. This is an estimate, not an exact count.
+
+<Warning>
+  Large reference files increase the input token count for every translation you run. If the estimate is high, consider trimming files to the most relevant sections or removing files you no longer need.
+</Warning>
+
+## What files to add
+
+Good candidates for reference files:
+
+- **Your base character or actor class** — shows the LLM how your primary game classes are structured
+- **Common utility headers** — gives context for helper functions and macros the LLM should know about
+- **A coding standards file** — if you have a documented style guide in header form, this is the highest-signal file you can provide
+- **A representative subsystem or component** — shows typical patterns for how your project organizes functionality
+
+<Tip>
+  Start with one or two files. A focused, relevant header often gives the LLM more useful signal than many large files that dilute the context.
+</Tip>
+
+## What the LLM does with them
+
+Reference files are not compiled or executed. They are included as text in the prompt so the LLM can observe your patterns and replicate them. The LLM may pick up on:
+
+- Naming conventions (prefixes, casing, abbreviations)
+- How you structure includes and forward declarations
+- UPROPERTY and UFUNCTION macro patterns you use
+- Comment style and documentation format

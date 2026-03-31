@@ -1,0 +1,82 @@
+---
+title: "Introduction"
+description: "Node to Code is an Unreal Engine editor plugin that translates Blueprint graphs into C++ and other programming languages using large language models."
+---
+
+Node to Code connects your Blueprint editor directly to an LLM. Select any nodes in a Blueprint graph, click the **Node to Code** button in the toolbar, and the plugin analyzes the graph, serializes it to a compact JSON schema, sends it to your chosen provider, and displays the result in a dockable output window with syntax highlighting.
+
+## How it works
+
+1. **Blueprint analysis** — The plugin captures your graph structure: execution flows, data connections, variable references, and comments.
+2. **Efficient serialization** — The graph is converted to a bespoke JSON schema that reduces token usage by 60–90% compared to Unreal Engine's native text format.
+3. **LLM request** — The serialized graph is sent to your configured provider along with optional reference source files that guide output style.
+4. **Code output** — The result is displayed in the integrated editor window and saved locally for archiving and sharing.
+
+## Who it's for
+
+<CardGroup cols={2}>
+
+<Card title="Blueprint creators" icon="diagram-project">
+  Communicate your systems clearly without screenshots or lengthy meetings. Gradually learn C++ by seeing your own logic translated.
+</Card>
+
+<Card title="C++ programmers" icon="code">
+  Understand designer intent without deciphering complex visual graphs. Get a structured text representation of any Blueprint you're handed.
+</Card>
+
+<Card title="Project leads" icon="users">
+  Improve cross-discipline communication and generate documentation from existing Blueprint systems without manual effort.
+</Card>
+
+<Card title="Educators and students" icon="graduation-cap">
+  Bridge the gap between visual scripting and code with real examples drawn from actual project logic.
+</Card>
+
+</CardGroup>
+
+## Supported LLM providers
+
+| Provider | Type | Notes |
+|---|---|---|
+| Anthropic Claude | Cloud | Claude 4 Sonnet is the default |
+| OpenAI | Cloud | GPT-4.1, o3, o4 Mini, and others |
+| Google Gemini | Cloud | Gemini 2.5 Flash and Pro |
+| DeepSeek | Cloud | R1 and V3 |
+| Ollama | Local | Run models fully offline |
+| LM Studio | Local | Run models fully offline |
+
+## Supported output languages
+
+- C++
+- C#
+- Python
+- JavaScript
+- Swift
+- Pseudocode
+
+## Key capabilities
+
+- **One-click translation** — Translate selected nodes or an entire Blueprint with a single toolbar click.
+- **Nested graph traversal** — Capture Blueprint hierarchies up to five levels deep with configurable translation depth.
+- **Style guidance** — Supply your own `.h` and `.cpp` files as reference to maintain your project's coding conventions.
+- **Automatic saving** — Each translation is saved locally for easy archiving and sharing via chat, forums, or documentation.
+- **Syntax highlighting** — The integrated output window includes theme support with multiple built-in color schemes.
+- **Pseudocode mode** — Convert Blueprints into language-agnostic pseudocode for sharing with non-programmers.
+
+## Next steps
+
+<CardGroup cols={2}>
+
+<Card title="Installation" icon="download" href="/installation">
+  Download and install the plugin for your engine or project.
+</Card>
+
+<Card title="Quick start" icon="rocket" href="/quickstart">
+  Configure a provider and run your first translation.
+</Card>
+
+<Card title="LLM providers" icon="server" href="/providers/overview">
+  Compare providers and learn how to set up each one.
+</Card>
+
+</CardGroup>

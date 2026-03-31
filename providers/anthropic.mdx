@@ -1,0 +1,43 @@
+---
+title: "Anthropic Claude"
+description: "Configure Node to Code to use Anthropic's Claude models. Anthropic is the default provider."
+---
+
+Anthropic is the default provider for Node to Code, with **Claude 4 Sonnet** selected as the default model. No changes are required if you want to use this provider out of the box — just add your API key.
+
+## Getting an API key
+
+<Steps>
+  <Step title="Create an Anthropic account">
+    Go to [console.anthropic.com](https://console.anthropic.com) and sign in or create an account.
+  </Step>
+  <Step title="Generate an API key">
+    Navigate to **API Keys** and click **Create Key**. Copy the key — you won't be able to view it again after closing the dialog.
+  </Step>
+  <Step title="Add the key in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → Anthropic** and paste your key into the **API Key** field.
+  </Step>
+  <Step title="Confirm provider selection">
+    Under **Node to Code | LLM Provider**, confirm **Provider** is set to **Anthropic** (it is by default).
+  </Step>
+</Steps>
+
+## Model selection
+
+Set the model under **Node to Code | LLM Services | Anthropic → Anthropic Model**.
+
+| Display name | Model ID | Notes |
+|---|---|---|
+| Claude 4 Opus | `claude-4-opus-20250514` | Most capable Claude model |
+| Claude 4 Sonnet | `claude-4-sonnet-20250514` | **Default** — recommended |
+| Claude 3.7 Sonnet | `claude-3-7-sonnet-20250219` | |
+| Claude 3.5 Sonnet | `claude-3-5-sonnet-20241022` | |
+| Claude 3.5 Haiku | `claude-3-5-haiku-20241022` | Fastest and most economical |
+
+<Tip>
+  **Claude 4 Sonnet** is the recommended model for most Blueprint translation tasks. It balances quality, speed, and cost. Use **Claude 4 Opus** for the most complex or deeply nested graphs where maximum reasoning capability is needed.
+</Tip>
+
+## System prompt support
+
+All Anthropic models fully support system prompts. Node to Code uses a system prompt to provide translation context and instructions, and all Claude models handle this correctly without any special configuration.

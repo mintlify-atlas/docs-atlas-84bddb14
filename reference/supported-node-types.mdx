@@ -1,0 +1,276 @@
+---
+title: "Supported Node Types"
+description: "Complete reference of all Blueprint node types, pin types, graph types, and Blueprint types supported by Node to Code."
+---
+
+## Blueprint types
+
+These correspond to `EN2CBlueprintType` and appear in `metadata.BlueprintType` in the N2C JSON.
+
+| Value | Display Name | Description |
+|---|---|---|
+| `Normal` | Blueprint Class | Standard Blueprint class |
+| `Const` | Const Blueprint Class | Const Blueprint — methods cannot modify member variables |
+| `MacroLibrary` | Blueprint Macro Library | Container for reusable macros |
+| `Interface` | Blueprint Interface | Interface to be implemented by other Blueprints |
+| `LevelScript` | Level Blueprint | Handles level scripting |
+| `FunctionLibrary` | Blueprint Function Library | Container for reusable functions |
+
+---
+
+## Graph types
+
+These correspond to `EN2CGraphType` and appear as `graph_type` in graph objects.
+
+| Value | Description |
+|---|---|
+| `EventGraph` | The main event graph |
+| `Function` | A user-created function |
+| `Composite` | A collapsed graph / composite node |
+| `Macro` | A macro graph |
+| `Construction` | The Construction Script |
+| `Animation` | An animation graph |
+
+---
+
+## Node types
+
+These correspond to `EN2CNodeType` and appear as `type` in node objects. The JSON value is the snake_case display name.
+
+### Function calls
+
+| JSON type | Description |
+|---|---|
+| `call_function` | Standard function call |
+| `call_array_function` | Array utility function call |
+| `call_datatable_function` | DataTable function call |
+| `call_delegate` | Delegate invocation |
+| `call_function_on_member` | Function called on a component/member |
+| `call_material_parameter_collection` | Material parameter collection call |
+| `call_parent_function` | Call to parent class function |
+| `generic_to_text` | Convert value to text |
+| `get_datatable_row` | Retrieve a row from a DataTable |
+| `function_entry` | Function graph entry node |
+| `function_result` | Function return node |
+| `function_terminator` | Function terminator |
+
+### Variables
+
+| JSON type | Description |
+|---|---|
+| `variable_get` | Get a Blueprint variable |
+| `variable_set` | Set a Blueprint variable |
+| `variable_set_ref` | Set a variable by reference |
+| `local_variable` | Local variable reference |
+| `local_variable_get` | Get a local variable |
+| `local_variable_set` | Set a local variable |
+| `function_parameter` | Function input parameter |
+| `local_function_variable` | Local function variable |
+| `make_variable` | Create a variable |
+| `temporary_variable` | Temporary variable node |
+| `set_variable_on_persistent_frame` | Set variable on persistent frame |
+
+### Events
+
+| JSON type | Description |
+|---|---|
+| `event` | Standard event node (e.g. BeginPlay, Tick) |
+| `custom_event` | User-defined custom event |
+| `actor_bound_event` | Event bound to an actor |
+| `component_bound_event` | Event bound to a component |
+| `generated_bound_event` | Generated bound event |
+| `input_action` | Input action node |
+| `input_action_event` | Input action event |
+| `input_axis_event` | Input axis event |
+| `input_key_event` | Input key event |
+| `input_touch_event` | Input touch event |
+| `input_key` | Input key node |
+| `input_touch` | Input touch node |
+| `get_input_axis_value` | Get input axis value |
+| `get_input_axis_key_value` | Get input axis key value |
+| `get_input_vector_axis_value` | Get input vector axis value |
+| `event_node_interface` | Interface event node |
+
+### Flow control
+
+| JSON type | Description |
+|---|---|
+| `branch` | If/else branch |
+| `sequence` | Execute outputs in sequence |
+| `for_loop` | Standard for loop |
+| `for_each_loop` | For-each loop over array |
+| `for_each_element_in_enum` | For-each loop over enum values |
+| `while_loop` | While loop |
+| `gate` | Gate flow control |
+| `multi_gate` | Multi-output gate |
+| `do_once` | Execute once |
+| `do_once_multi_input` | Do-once with multiple inputs |
+| `select` | Select value by index |
+| `knot` | Re-route/knot node (transparent) |
+| `tunnel` | Collapsed graph tunnel |
+| `tunnel_boundary` | Tunnel boundary |
+
+### Switches
+
+| JSON type | Description |
+|---|---|
+| `switch` | Generic switch |
+| `switch_int` | Switch on integer |
+| `switch_string` | Switch on string |
+| `switch_enum` | Switch on enum value |
+| `switch_name` | Switch on name |
+
+### Structs and objects
+
+| JSON type | Description |
+|---|---|
+| `make_struct` | Construct a struct |
+| `break_struct` | Decompose a struct |
+| `set_fields_in_struct` | Set specific struct fields |
+| `struct_member_get` | Get a struct member |
+| `struct_member_set` | Set a struct member |
+| `struct_operation` | Generic struct operation |
+
+### Containers
+
+| JSON type | Description |
+|---|---|
+| `make_array` | Create an array literal |
+| `make_map` | Create a map literal |
+| `make_set` | Create a set literal |
+| `make_container` | Generic container creation |
+| `get_array_item` | Get item from array by index |
+
+### Casting and conversion
+
+| JSON type | Description |
+|---|---|
+| `dynamic_cast` | Dynamic object cast |
+| `class_dynamic_cast` | Dynamic class cast |
+| `cast_byte_to_enum` | Cast byte to enum value |
+| `convert_asset` | Asset conversion |
+| `editable_pin_base` | Editable pin base node |
+| `external_graph_interface` | External graph interface |
+
+### Delegates
+
+| JSON type | Description |
+|---|---|
+| `add_delegate` | Bind to a delegate |
+| `create_delegate` | Create a delegate binding |
+| `clear_delegate` | Unbind all from a delegate |
+| `remove_delegate` | Remove a specific binding |
+| `assign_delegate` | Assign a delegate |
+| `delegate_set` | Set delegate value |
+| `base_mc_delegate` | Multicast delegate base |
+
+### Async / latent
+
+| JSON type | Description |
+|---|---|
+| `async_action` | Async action node |
+| `base_async_task` | Base async task node |
+
+### Components
+
+| JSON type | Description |
+|---|---|
+| `add_component` | Add a component |
+| `add_component_by_class` | Add a component by class reference |
+| `add_pin_interface` | Add pin interface |
+
+### Utility
+
+| JSON type | Description |
+|---|---|
+| `construct_object_from_class` | Construct a UObject from class |
+| `generic_create_object` | Generic object creation |
+| `timeline` | Timeline node |
+| `spawn_actor` | Spawn an actor |
+| `spawn_actor_from_class` | Spawn actor from class reference |
+| `format_text` | Format text with arguments |
+| `get_class_defaults` | Get class default values |
+| `get_subsystem` | Get a subsystem instance |
+| `load_asset` | Load an asset |
+| `copy` | Copy node |
+| `comment` | Comment box |
+
+### Math and logic
+
+| JSON type | Description |
+|---|---|
+| `math_expression` | Inline math expression |
+| `ease_function` | Ease/interpolation function |
+| `enum_equality` | Enum equality check |
+| `enum_inequality` | Enum inequality check |
+| `enum_literal` | Enum literal value |
+| `get_enumerator_name` | Get enum value name |
+| `get_enumerator_name_as_string` | Get enum value name as string |
+| `get_num_enum_entries` | Get number of enum entries |
+| `bitmask_literal` | Bitmask literal value |
+| `commutative_associative_binary_operator` | Commutative binary operator (e.g. Add, Multiply) |
+| `assignment_statement` | Assignment statement |
+| `pure_assignment_statement` | Pure assignment statement |
+
+### Special
+
+| JSON type | Description |
+|---|---|
+| `self` | Self reference node |
+| `composite` | Composite (collapsed) graph |
+| `literal` | Literal value node |
+| `interface_message` | Interface message call |
+| `promotable_operator` | Promotable operator (e.g. wildcard math) |
+| `macro_instance` | Macro instance |
+| `dead_class` | Dead/removed class reference |
+
+---
+
+## Pin types
+
+These correspond to `EN2CPinType` and appear as `type` in pin objects.
+
+| Pin type | Description |
+|---|---|
+| `Exec` | Execution flow pin |
+| `Boolean` | Boolean value |
+| `Byte` | Byte (uint8) value |
+| `Integer` | 32-bit integer |
+| `Integer64` | 64-bit integer |
+| `Float` | Single-precision float |
+| `Double` | Double-precision float |
+| `Real` | Real number (float or double) |
+| `String` | String value |
+| `Name` | FName value |
+| `Text` | FText (localized text) |
+| `Vector` | FVector (3D vector) |
+| `Vector2D` | FVector2D |
+| `Vector4D` | FVector4 |
+| `Rotator` | FRotator |
+| `Transform` | FTransform |
+| `Quat` | FQuat |
+| `Object` | UObject reference |
+| `Class` | UClass reference |
+| `Interface` | Interface reference |
+| `Struct` | Struct value (sub_type contains struct name) |
+| `Enum` | Enum value (sub_type contains enum name) |
+| `Delegate` | Single-cast delegate |
+| `MulticastDelegate` | Multicast delegate |
+| `Array` | Array container |
+| `Set` | Set container |
+| `Map` | Map container |
+| `SoftObject` | Soft object reference |
+| `SoftClass` | Soft class reference |
+| `AssetId` | Asset identifier |
+| `Material` | Material asset |
+| `Texture` | Texture asset |
+| `StaticMesh` | Static mesh asset |
+| `SkeletalMesh` | Skeletal mesh asset |
+| `Pose` | Animation pose |
+| `Animation` | Animation asset |
+| `BlendSpace` | Blend space asset |
+| `FieldPath` | Field path reference |
+| `Bitmask` | Bitmask value |
+| `Self` | Self/this reference |
+| `Index` | Index value |
+| `Wildcard` | Wildcard (any type) |

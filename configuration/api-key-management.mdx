@@ -1,0 +1,82 @@
+---
+title: "API key management"
+description: "How Node to Code stores API keys and best practices for keeping them out of source control."
+---
+
+Node to Code requires an API key for each cloud LLM provider you use. Local providers — Ollama and LM Studio — connect to a process running on your machine and require no API key.
+
+<Warning>Never commit API keys to source control. Exposed keys can be used by others and will incur charges on your account.</Warning>
+
+---
+
+## How keys are stored
+
+API keys are stored using a dedicated user secrets mechanism (`UN2CUserSecrets`) that is separate from the standard Unreal Engine config system. This means keys are **not** written to `NodeToCode.ini` or any other `.ini` file tracked alongside your project.
+
+Keys are serialized to a JSON file in a location outside your project's `Saved/Config` directory. The secrets file path is resolved at runtime and is specific to the local machine.
+
+This design prevents API keys from being accidentally included when you:
+
+- Check in your `Saved/Config` directory
+- Share your project with teammates
+- Package or distribute your project build
+
+<Note>The API key fields are editor-only properties. They are not included in packaged game builds.</Note>
+
+---
+
+## Entering your API keys
+
+<Steps>
+  <Step title="Open Project Settings">
+    In the Unreal Engine menu bar, go to **Edit → Project Settings**.
+  </Step>
+  <Step title="Navigate to Node to Code">
+    Select **Plugins → Node to Code** from the left panel.
+  </Step>
+  <Step title="Expand the provider section">
+    Scroll to **LLM Services** and expand the section for the provider you want to configure — for example, **Anthropic** or **OpenAI**.
+  </Step>
+  <Step title="Enter your API key">
+    Paste your API key into the **API Key** field. The value is saved to the secrets file as soon as you navigate away from the field or close Project Settings.
+  </Step>
+</Steps>
+
+---
+
+## Supported providers
+
+| Provider | Requires API key | Where to get a key |
+|----------|------------------|--------------------|
+| Anthropic | Yes | [console.anthropic.com](https://console.anthropic.com) |
+| OpenAI | Yes | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| Gemini | Yes | [aistudio.google.com](https://aistudio.google.com) |
+| DeepSeek | Yes | [platform.deepseek.com](https://platform.deepseek.com) |
+| Ollama | No | Local provider — no key needed |
+| LM Studio | No | Local provider — no key needed |
+
+---
+
+## Team environments
+
+When multiple developers share a project, each person must enter their own API key on their own machine. Because keys are stored locally in the secrets file, they are never shared through source control.
+
+<Tip>For teams that want to share a single API key (for example, a service account key), consider distributing the key through a secrets manager or environment variable and having each developer enter it manually in Project Settings. Do not commit any file containing the key.</Tip>
+
+Recommended practices for teams:
+
+- Document which provider and model your team uses in your project's internal wiki
+- Rotate API keys periodically and update each developer's local settings
+- Revoke any key that may have been accidentally exposed
+- Use provider-level usage limits or spending caps to guard against unexpected costs
+
+---
+
+## Checking if a key is configured
+
+If a translation request fails with an authentication error, the most likely cause is a missing or invalid API key for the active provider. To verify:
+
+1. Open **Edit → Project Settings → Plugins → Node to Code**.
+2. Confirm the **Provider** setting matches the provider whose key you entered.
+3. Re-enter the API key to rule out copy/paste errors (keys are masked after entry).
+4. Check the **Output Log** for `LogNodeToCode` entries — authentication errors are logged at the `Error` severity level.

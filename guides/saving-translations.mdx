@@ -1,0 +1,64 @@
+---
+title: "Saving translations"
+description: "Node to Code automatically saves every translation locally for archiving, sharing, and review."
+---
+
+Every time Node to Code completes a translation, it saves the full response to disk automatically. You don't need to do anything — the file is written before the results appear in the editor panel.
+
+## Default save location
+
+Translations are saved to:
+
+```
+<YourProject>/Saved/NodeToCode/Translations/
+```
+
+Each file contains the complete translation response, including all graph translations with their declaration, implementation, and implementation notes sections, along with the token usage for that request.
+
+## Custom save location
+
+If you want translations saved to a different directory — for example, a shared team folder or a version-controlled path — you can override the default location.
+
+<Steps>
+  <Step title="Open Project Settings">
+    Go to **Edit → Project Settings** in the Unreal Engine menu bar.
+  </Step>
+  <Step title="Navigate to Node to Code">
+    Select **Plugins → Node to Code** from the left sidebar.
+  </Step>
+  <Step title="Set a custom directory">
+    Under **Code Generation**, set the **Custom Translation Output Directory** to your preferred path. When set, all new translations will be written there instead of `Saved/NodeToCode/Translations/`.
+  </Step>
+</Steps>
+
+<Note>
+  Leaving **Custom Translation Output Directory** empty keeps the default behavior. The `Saved/` folder is excluded from version control by default in Unreal Engine projects, so if you want translations tracked in source control, set a custom path inside your project's source tree.
+</Note>
+
+## What's saved
+
+Each saved file represents one translation response and contains:
+
+- All graph translations from that request — each with its name, type, declaration, implementation, and implementation notes
+- Token usage data (input and output tokens) for the request
+
+## Uses for saved translations
+
+<CardGroup cols={2}>
+  <Card title="Archiving" icon="box-archive">
+    Keep a record of how your Blueprints looked at a point in time. Useful when refactoring or auditing old systems.
+  </Card>
+  <Card title="Sharing" icon="share-nodes">
+    Drop a translation file into a chat, email, or pull request to communicate Blueprint logic without screenshots.
+  </Card>
+  <Card title="Code review" icon="magnifying-glass-code">
+    Share translations with C++ engineers who need to review Blueprint logic without opening the editor.
+  </Card>
+  <Card title="Team knowledge base" icon="book-open">
+    Collect translations into a shared folder that the whole team can search and reference.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Review the `Saved/NodeToCode/Translations/` folder periodically to see how a Blueprint's translation has evolved across changes. Comparing old and new translations is a quick way to spot unintended logic drift.
+</Tip>

@@ -1,0 +1,225 @@
+---
+title: "Plugin settings"
+description: "Complete reference for all Node to Code settings, accessible through Unreal Engine's Project Settings panel."
+---
+
+Open the settings panel from the Unreal Engine menu bar: **Edit → Project Settings → Plugins → Node to Code**.
+
+Settings are stored in `Saved/Config/[Platform]/NodeToCode.ini` using the `Config = NodeToCode` storage config. API keys are stored separately — see [API Key Management](/configuration/api-key-management).
+
+---
+
+## LLM provider
+
+<ParamField path="Provider" type="enum" default="Anthropic">
+  The active LLM provider. All translation requests are sent to this provider.
+
+  | Value | Description |
+  |-------|-------------|
+  | `Anthropic` | Claude models via Anthropic API |
+  | `OpenAI` | GPT and o-series models via OpenAI API |
+  | `Gemini` | Gemini models via Google AI API |
+  | `DeepSeek` | DeepSeek models via DeepSeek API |
+  | `Ollama` | Local models via Ollama |
+  | `LMStudio` | Local models via LM Studio |
+</ParamField>
+
+---
+
+## LLM services
+
+Model and credential settings for each provider. Only the section matching your selected provider is used for translations.
+
+### Anthropic
+
+<ParamField path="AnthropicModel" type="enum" default="Claude 4 Sonnet">
+  The Anthropic model used for translation.
+
+  | Display name | API identifier |
+  |---|---|
+  | Claude 4 Opus | `claude-4-opus-20250514` |
+  | Claude 4 Sonnet | `claude-4-sonnet-20250514` |
+  | Claude 3.7 Sonnet | `claude-3-7-sonnet-20250219` |
+  | Claude 3.5 Sonnet | `claude-3-5-sonnet-20241022` |
+  | Claude 3.5 Haiku | `claude-3-5-haiku-20241022` |
+</ParamField>
+
+<ParamField path="API Key" type="string">
+  Your Anthropic API key. Stored in the user secrets file, not in `NodeToCode.ini`. See [API Key Management](/configuration/api-key-management).
+</ParamField>
+
+### OpenAI
+
+<ParamField path="OpenAI_Model" type="enum" default="o4 Mini">
+  The OpenAI model used for translation.
+
+  | Display name | API identifier |
+  |---|---|
+  | o4 Mini | `o4-mini` |
+  | GPT-4.1 | `gpt-4.1` |
+  | o3 | `o3` |
+  | o3 Mini | `o3-mini` |
+  | o1 | `o1` |
+  | o1 Preview | `o1-preview-2024-09-12` |
+  | o1 Mini | `o1-mini-2024-09-12` |
+  | GPT-4o | `gpt-4o-2024-08-06` |
+  | GPT-4o Mini | `gpt-4o-mini-2024-07-18` |
+
+  <Note>**o1 Preview** and **o1 Mini** do not support system prompts. All other OpenAI models listed here, including o1, o3, o4 Mini, and GPT-4.1, do support system (developer) prompts.</Note>
+</ParamField>
+
+<ParamField path="API Key" type="string">
+  Your OpenAI API key. Stored in the user secrets file. See [API Key Management](/configuration/api-key-management).
+</ParamField>
+
+### Gemini
+
+<ParamField path="Gemini_Model" type="enum" default="Gemini 2.5 Flash Preview">
+  The Gemini model used for translation.
+
+  | Display name | API identifier |
+  |---|---|
+  | Gemini 2.5 Pro Preview | `gemini-2.5-pro-preview-05-06` |
+  | Gemini 2.5 Flash Preview | `gemini-2.5-flash-preview-05-20` |
+  | Gemini 2.0 Flash | `gemini-2.0-flash` |
+  | Gemini 2.0 Flash-Lite Preview | `gemini-2.0-flash-lite-preview-02-05` |
+  | Gemini 1.5 Flash | `gemini-1.5-flash` |
+  | Gemini 1.5 Pro | `gemini-1.5-pro` |
+  | Gemini 2.0 Pro Exp 02-05 | `gemini-2.0-pro-exp-02-05` |
+  | Gemini 2.0 Flash Thinking Exp 01-21 | `gemini-2.0-flash-thinking-exp-01-21` |
+</ParamField>
+
+<ParamField path="API Key" type="string">
+  Your Gemini API key. Stored in the user secrets file. See [API Key Management](/configuration/api-key-management).
+</ParamField>
+
+### DeepSeek
+
+<ParamField path="DeepSeekModel" type="enum" default="DeepSeek R1">
+  The DeepSeek model used for translation.
+
+  | Display name | API identifier |
+  |---|---|
+  | DeepSeek R1 | `deepseek-reasoner` |
+  | DeepSeek V3 | `deepseek-chat` |
+</ParamField>
+
+<ParamField path="API Key" type="string">
+  Your DeepSeek API key. Stored in the user secrets file. See [API Key Management](/configuration/api-key-management).
+</ParamField>
+
+### Ollama
+
+<ParamField path="OllamaModel" type="string" default="qwen3:32b">
+  The model name to use with Ollama. Must match a model you have pulled locally (e.g., `llama3.2`, `mistral`, `qwen3:32b`).
+</ParamField>
+
+<Note>Ollama requires no API key. The plugin connects to your local Ollama instance. See the [Ollama provider guide](/providers/ollama) for setup instructions.</Note>
+
+### LM Studio
+
+<ParamField path="LMStudioModel" type="string" default="qwen3-32b">
+  The model name as configured in LM Studio.
+</ParamField>
+
+<ParamField path="LMStudioEndpoint" type="string" default="http://localhost:1234">
+  The base URL of your LM Studio server. Change this if you have configured LM Studio to run on a non-default port or a remote host.
+</ParamField>
+
+<ParamField path="LMStudioPrependedModelCommand" type="string" default="">
+  Optional text prepended to the start of every user message. Useful for model-specific commands such as `/no_think` to disable extended thinking on reasoning models. Leave blank if not needed.
+</ParamField>
+
+<Note>LM Studio requires no API key. See the [LM Studio provider guide](/providers/lm-studio) for setup instructions.</Note>
+
+---
+
+## Code generation
+
+<ParamField path="TargetLanguage" type="enum" default="C++">
+  The output language for Blueprint translations.
+
+  | Value | Description |
+  |-------|-------------|
+  | `C++` | Unreal Engine C++ |
+  | `Python` | Python |
+  | `JavaScript` | JavaScript |
+  | `C#` | C# |
+  | `Swift` | Swift |
+  | `Pseudocode` | Language-agnostic pseudocode |
+</ParamField>
+
+<ParamField path="TranslationDepth" type="integer" default="0">
+  Maximum depth for nested graph translation. When a Blueprint calls a function defined in another graph, the plugin can recursively translate those referenced graphs up to this depth.
+
+  - `0` — No nested translation. Only the selected graph is translated.
+  - `1–5` — Translate referenced graphs up to this many levels deep.
+
+  <Warning>Higher depth values significantly increase token usage and API cost. Start at `0` and increase only when you need the full call hierarchy translated.</Warning>
+</ParamField>
+
+<ParamField path="ReferenceSourceFilePaths" type="FFilePath[]">
+  A list of `.h` and `.cpp` source files provided as context to the LLM. Use this to supply your project's coding conventions, base classes, or utility headers so the translated output matches your codebase style.
+
+  Accepts C++ files (`*.h`, `*.cpp`).
+</ParamField>
+
+<ParamField path="EstimatedReferenceFileTokens" type="integer">
+  Read-only. Displays the estimated token count for all currently configured reference files, calculated as `character count / 4`. Use this to gauge the context overhead added to every translation request.
+</ParamField>
+
+<ParamField path="CustomTranslationOutputDirectory" type="FDirectoryPath">
+  If set, translated output files are saved to this directory. If left blank, translations are saved to `Saved/NodeToCode/Translations/` inside your project folder.
+</ParamField>
+
+---
+
+## Logging
+
+<ParamField path="MinSeverity" type="enum" default="Info">
+  The minimum log severity level written to the Output Log under the `LogNodeToCode` category.
+
+  | Value | Description |
+  |-------|-------------|
+  | `Debug` | Verbose diagnostic messages |
+  | `Info` | General operational messages |
+  | `Warning` | Potential issues that do not stop translation |
+  | `Error` | Failures that prevented translation from completing |
+  | `Fatal` | Unrecoverable errors |
+
+  Set to `Warning` or `Error` to reduce log noise in production.
+</ParamField>
+
+---
+
+## Pricing
+
+The plugin tracks per-request cost estimates using input and output token pricing for each cloud provider. Pricing maps are pre-populated with current rates and can be edited if pricing changes.
+
+<Note>Ollama and LM Studio are local providers and always report a cost of $0.00.</Note>
+
+| Setting | Description |
+|---------|-------------|
+| `OpenAIModelPricing` | Input/output cost per 1M tokens for each OpenAI model |
+| `AnthropicModelPricing` | Input/output cost per 1M tokens for each Anthropic model |
+| `GeminiModelPricing` | Input/output cost per 1M tokens for each Gemini model |
+| `DeepSeekModelPricing` | Input/output cost per 1M tokens for each DeepSeek model |
+
+Cost estimates appear in the translation output window after each request.
+
+---
+
+## Theming
+
+The integrated code editor window uses per-language syntax highlighting themes. See [Code Editor Themes](/configuration/code-editor-themes) for the full list of built-in themes and instructions for creating custom themes.
+
+| Setting | Language |
+|---------|----------|
+| `CPPThemes` | C++ |
+| `PythonThemes` | Python |
+| `JavaScriptThemes` | JavaScript |
+| `CSharpThemes` | C# |
+| `SwiftThemes` | Swift |
+| `PseudocodeThemes` | Pseudocode |
+
+Each setting is a map of theme names to color definitions (`FN2CCodeEditorColors`). You can add custom entries to any map directly in Project Settings.

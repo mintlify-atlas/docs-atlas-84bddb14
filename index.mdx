@@ -1,97 +1,56 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Node to Code"
+description: "Translate Unreal Engine Blueprints to C++ in seconds. Not hours."
 ---
 
-## Setting up
+Node to Code is an Unreal Engine editor plugin that converts Blueprint graphs into clean, structured C++ with a single click. Powered by leading LLM providers — including OpenAI, Anthropic Claude, Google Gemini, DeepSeek, Ollama, and LM Studio — it bridges the Blueprint-to-code gap for developers of every skill level.
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install Node to Code as an engine or project plugin in minutes
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Configure your LLM provider and translate your first Blueprint
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="LLM Providers" icon="microchip" href="/providers/overview">
+    Choose from cloud providers or run 100% locally with Ollama or LM Studio
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Output Languages" icon="code" href="/guides/output-languages">
+    Translate to C++, Python, C#, JavaScript, Swift, or Pseudocode
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Why Node to Code?
 
-Everything you need to create world-class documentation.
+<CardGroup cols={2}>
+  <Card title="Blueprint Communication" icon="comments">
+    Convert Blueprints to text for forums, chat, emails, or documentation — no more screenshot chains
+  </Card>
+  <Card title="Navigate Complex Architectures" icon="diagram-project">
+    Transform sprawling node networks into clear, structured code with configurable depth up to 5 levels
+  </Card>
+  <Card title="Bridge Blueprint to C++" icon="bridge">
+    Learn proper Unreal C++ from your own Blueprint logic with implementation notes explaining key patterns
+  </Card>
+  <Card title="Local & Private" icon="shield-halved">
+    Run entirely offline with Ollama or LM Studio — your code never leaves your machine
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Get started in three steps
 
-## Need inspiration?
+<Steps>
+  <Step title="Install the plugin">
+    Download the latest release from [GitHub Releases](https://github.com/protospatial/NodeToCode/releases) and install it to your Unreal Engine installation or project. See [Installation](/installation) for detailed instructions.
+  </Step>
+  <Step title="Configure your LLM provider">
+    Open **Edit → Project Settings → Plugins → Node to Code**, select your preferred LLM provider, and enter your API key. For a local setup, configure Ollama or LM Studio instead. See [LLM Providers](/providers/overview).
+  </Step>
+  <Step title="Translate a Blueprint">
+    Open any Blueprint in the Unreal editor, select the nodes you want to translate, then click the **Node to Code** button in the Blueprint Editor toolbar. Your C++ appears in the dockable output window with syntax highlighting and implementation notes.
+  </Step>
+</Steps>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Note>
+  Node to Code v1.2.2 supports Unreal Engine on **Windows (Win64)** and **macOS (Mac)**. Check [GitHub Releases](https://github.com/protospatial/NodeToCode/releases) for the latest build.
+</Note>

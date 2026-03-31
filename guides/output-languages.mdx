@@ -1,0 +1,59 @@
+---
+title: "Output languages"
+description: "Choose from six target languages when translating Blueprint graphs."
+---
+
+Node to Code can translate Blueprint graphs into six languages. Each language has its own syntax-highlighted code editor with multiple themes you can customize.
+
+## Changing the target language
+
+<Steps>
+  <Step title="Open Project Settings">
+    Go to **Edit → Project Settings** in the Unreal Engine menu bar.
+  </Step>
+  <Step title="Navigate to Node to Code">
+    Select **Plugins → Node to Code** from the left sidebar.
+  </Step>
+  <Step title="Set the target language">
+    Under **Code Generation**, change the **Target Language** setting to your preferred language.
+  </Step>
+</Steps>
+
+The next translation you run will use the new language.
+
+## Supported languages
+
+<CardGroup cols={2}>
+  <Card title="C++" icon="code">
+    Unreal Engine C++ with proper UE API usage, macros, and conventions. The primary language for performance-critical systems and engine integration.
+  </Card>
+  <Card title="C#" icon="hashtag">
+    Useful for teams evaluating Unity migrations or developers who think in C# syntax. Output follows general C# conventions rather than a specific game engine.
+  </Card>
+  <Card title="Python" icon="python">
+    Good for scripting, tooling, and prototyping. Helpful for technical artists or pipeline engineers who work primarily in Python.
+  </Card>
+  <Card title="JavaScript" icon="js">
+    Useful for web or tools developers reviewing Blueprint logic or building editor tooling that bridges to JavaScript environments.
+  </Card>
+  <Card title="Swift" icon="swift">
+    Helpful for developers who come from an iOS/macOS background and want to understand Blueprint logic in familiar syntax.
+  </Card>
+  <Card title="Pseudocode" icon="file-lines">
+    Language-agnostic structured logic — no syntax, no imports, just the logic. Ideal for communicating with non-programmers, writing design documents, or team discussions.
+  </Card>
+</CardGroup>
+
+## Pseudocode for non-code teams
+
+Pseudocode is particularly useful when you need to share Blueprint logic with people who don't write code — designers, producers, or stakeholders. The output describes what the graph does in plain structured steps without requiring any programming knowledge to read.
+
+<Tip>
+  Use pseudocode when sharing Blueprint logic in documentation, design reviews, or forum posts where the audience may not know C++ or any specific language.
+</Tip>
+
+## Code editor themes
+
+Each language has its own set of syntax highlighting themes. You can configure these per-language under **Project Settings → Node to Code → Theming → Language Specific Themes**. Available theme sets include options like Midnight Code, Cyber Night, Unreal Engine, Beige Earth, and others.
+
+Themes are configured independently for each language, so you can use different color schemes for C++ and pseudocode if needed.

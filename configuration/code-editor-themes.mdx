@@ -1,0 +1,96 @@
+---
+title: "Code editor themes"
+description: "Customize the syntax highlighting colors in the Node to Code integrated code editor window."
+---
+
+The integrated code editor window displays translated code with full syntax highlighting. Themes are configured per output language, so you can use different color schemes depending on whether you are viewing C++, Python, or any other supported language.
+
+## Selecting a theme
+
+<Steps>
+  <Step title="Open Project Settings">
+    In the Unreal Engine menu bar, go to **Edit → Project Settings**.
+  </Step>
+  <Step title="Navigate to Node to Code theming">
+    Select **Plugins → Node to Code** from the left panel, then scroll to the **Theming → Language Specific Themes** section.
+  </Step>
+  <Step title="Expand the language theme map">
+    Open the theme map for your target language — for example, **C++ Themes** — to see the list of available themes.
+  </Step>
+  <Step title="Set the active theme">
+    In the Node to Code code editor window, use the theme selector dropdown in the toolbar to choose from the themes defined in the map for the current language.
+  </Step>
+</Steps>
+
+---
+
+## Built-in themes
+
+All 21 built-in themes are available for every supported language (C++, Python, JavaScript, C#, Swift, Pseudocode) and are pre-populated in each language theme map.
+
+<Tip>The **Unreal Engine** theme is designed to match the UE5 editor color scheme and is a good starting point for developers who spend most of their time inside the Unreal Editor.</Tip>
+
+| Theme | Style |
+|-------|-------|
+| Spacedust | Dark teal/blue with vibrant orange and teal accents |
+| Ubuntu | Deep purple background with Ubuntu-inspired green and red |
+| Renaissance | Dark charcoal with warm orange, deep reds, and olive green |
+| Unreal Engine | UE5 editor dark theme with blue keywords and gold strings |
+| Midnight Code | VS Code-inspired dark with soft blue keywords and sage green numbers |
+| Midnight Neon | Very dark charcoal with neon cyan text and vivid accents |
+| Mono Amber | Monochromatic amber palette on a dark brown background |
+| Beige Earth | Light beige background with earthy muted tones |
+| Beige Earth Dark | Dark earthy variant with deep brown background |
+| Citrus Delight | Dark charcoal with bright orange, gold, and lime accents |
+| Cuppa Joe | Deep espresso background with warm coffee-toned syntax colors |
+| Cyber Night | Near-black background with neon teal, purple, and pink |
+| Forbidden Forest | Dark forest shadow with mystical purple and amber |
+| Night Sky | Deep blue-black with soft starlight text and cosmic purple |
+| Midnight Byte | Near-black with electric blue, cyan-mint, and purple |
+| Pixel Phosphor | Dark charcoal with retro phosphor greens and amber |
+| Night Shift | Warm dark charcoal with coral reds and copper tones — no cool colors |
+| Stealth | High-contrast dark monochrome in shades of gray |
+| Mono White | Light monochrome on a soft white background |
+| Studio Blue | Light background with classic Visual Studio blue, red, and green |
+| Crisp | Soft white background with muted purple, rust, and steel blue |
+
+---
+
+## Custom themes
+
+Each language theme setting (`CPPThemes`, `PythonThemes`, etc.) is a `TMap` of theme name to color definition. You can add your own entries directly in Project Settings without writing any C++.
+
+<Steps>
+  <Step title="Open the theme map for your language">
+    In **Project Settings → Node to Code → Theming → Language Specific Themes**, expand the theme map for the language you want to customize (e.g., **C++ Themes**).
+  </Step>
+  <Step title="Add a new map entry">
+    Click the **+** button to add a new key-value pair. Enter a unique name for your theme as the key.
+  </Step>
+  <Step title="Configure the color values">
+    Expand the new entry and set each color field. All fields accept `FColor` values (RGBA hex).
+  </Step>
+  <Step title="Select your theme">
+    Open the Node to Code editor window and choose your new theme from the theme selector dropdown.
+  </Step>
+</Steps>
+
+### Color fields
+
+Each theme is defined by an `FN2CCodeEditorColors` struct with the following fields. All values are `FColor` (RGBA).
+
+| Field | Token type |
+|-------|------------|
+| `NormalText` | Default/unclassified text |
+| `Keywords` | Language keywords (`class`, `void`, `if`, `return`, etc.) |
+| `Operators` | Operators (`+`, `-`, `*`, `->`, `::`, etc.) |
+| `Strings` | String literals |
+| `Numbers` | Numeric literals |
+| `Comments` | Single-line and multi-line comments |
+| `Preprocessor` | Preprocessor directives (`#include`, `#define`, etc.) |
+| `Parentheses` | Parentheses `()` |
+| `CurlyBraces` | Curly braces `{}` |
+| `SquareBrackets` | Square brackets `[]` |
+| `Background` | Editor background color |
+
+<Note>Custom themes you add in Project Settings are stored in `NodeToCode.ini` and are project-local. They are not shared between machines unless you check in your `Saved/Config` directory or distribute the ini file.</Note>

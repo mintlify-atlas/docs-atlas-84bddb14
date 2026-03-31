@@ -1,0 +1,40 @@
+---
+title: "Google Gemini"
+description: "Configure Node to Code to use Google's Gemini models for Blueprint translation."
+---
+
+## Getting an API key
+
+<Steps>
+  <Step title="Open Google AI Studio">
+    Go to [aistudio.google.com](https://aistudio.google.com) and sign in with your Google account.
+  </Step>
+  <Step title="Create an API key">
+    Click **Get API key** and then **Create API key**. Copy the generated key.
+  </Step>
+  <Step title="Add the key in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → Gemini** and paste your key into the **API Key** field.
+  </Step>
+  <Step title="Select Gemini as your provider">
+    Under **Node to Code | LLM Provider**, set **Provider** to **Gemini**.
+  </Step>
+</Steps>
+
+## Model selection
+
+Set the model under **Node to Code | LLM Services | Gemini → Gemini Model**.
+
+| Display name | Model ID | Notes |
+|---|---|---|
+| Gemini 2.5 Pro Preview | `gemini-2.5-pro-preview-05-06` | Most capable |
+| Gemini 2.5 Flash Preview | `gemini-2.5-flash-preview-05-20` | **Default** — recommended |
+| Gemini 2.0 Flash | `gemini-2.0-flash` | |
+| Gemini 2.0 Flash-Lite-Preview-02-05 | `gemini-2.0-flash-lite-preview-02-05` | |
+| Gemini 1.5 Flash | `gemini-1.5-flash` | |
+| Gemini 1.5 Pro | `gemini-1.5-pro` | |
+| Gemini 2.0 Pro Exp 02-05 | `gemini-2.0-pro-exp-02-05` | Experimental |
+| Gemini 2.0 Flash Thinking Exp 01-21 | `gemini-2.0-flash-thinking-exp-01-21` | Experimental thinking model |
+
+<Tip>
+  **Gemini 2.5 Flash Preview** is the recommended choice for most use cases — it delivers strong translation quality at a low cost per token. Use **Gemini 2.5 Pro Preview** when you need maximum reasoning capability for complex Blueprint graphs.
+</Tip>

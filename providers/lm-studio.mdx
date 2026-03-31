@@ -1,0 +1,58 @@
+---
+title: "LM Studio (Local)"
+description: "Run Blueprint translation locally using LM Studio's OpenAI-compatible server. No API key required."
+---
+
+LM Studio lets you download and run GGUF models through a local server with an OpenAI-compatible REST API. Like Ollama, it runs entirely on your machine — no data is sent externally.
+
+<Note>
+  LM Studio is free to use for local inference. Your Blueprint code and source files never leave your machine.
+</Note>
+
+## Setup
+
+<Steps>
+  <Step title="Download LM Studio">
+    Go to [lmstudio.ai](https://lmstudio.ai) and download the installer for your platform.
+  </Step>
+  <Step title="Load a model">
+    Open LM Studio, search for a model (e.g., `qwen3-32b`), and download it. Once downloaded, load it into memory using the model selector.
+  </Step>
+  <Step title="Start the local server">
+    In LM Studio, navigate to the **Developer** tab (or **Local Server** tab depending on your version) and click **Start Server**. The server listens on `http://localhost:1234` by default.
+  </Step>
+  <Step title="Configure in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → LM Studio** and set:
+    - **Server Endpoint** to your LM Studio server URL (default: `http://localhost:1234`)
+    - **Model Name** to the model identifier shown in LM Studio (default: `qwen3-32b`)
+  </Step>
+  <Step title="Select LM Studio as your provider">
+    Under **Node to Code | LLM Provider**, set **Provider** to **LM Studio**.
+  </Step>
+</Steps>
+
+## Configuration
+
+All LM Studio settings are under **Node to Code | LLM Services | LM Studio** in Project Settings.
+
+| Setting | Default | Description |
+|---|---|---|
+| Server Endpoint | `http://localhost:1234` | The base URL of your LM Studio local server. |
+| Model Name | `qwen3-32b` | The model identifier to request. This must match the model loaded in LM Studio. |
+| Prepended Model Command | _(empty)_ | Text prepended to the start of every user message. |
+
+### Prepended model command
+
+Some models support special commands that control their behavior. You can enter these in the **Prepended Model Command** field and the plugin will insert the text at the beginning of each user message automatically.
+
+A common example is `/no_think`, which disables extended thinking on reasoning models that support it:
+
+```
+/no_think
+```
+
+This can reduce latency significantly when using a reasoning model for straightforward translation tasks.
+
+<Tip>
+  Check the documentation for the specific model you're using to see what commands it supports. Not all models respond to `/no_think` or similar directives.
+</Tip>

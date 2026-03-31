@@ -1,0 +1,38 @@
+---
+title: "DeepSeek"
+description: "Configure Node to Code to use DeepSeek's R1 and V3 models for Blueprint translation."
+---
+
+DeepSeek offers competitive pricing relative to the quality of its models. **DeepSeek R1** is a reasoning model that thinks through problems before producing output, which can improve translation accuracy on complex graphs.
+
+## Getting an API key
+
+<Steps>
+  <Step title="Create a DeepSeek account">
+    Go to [platform.deepseek.com](https://platform.deepseek.com) and sign in or create an account.
+  </Step>
+  <Step title="Generate an API key">
+    Navigate to **API keys** and create a new key. Copy it before closing.
+  </Step>
+  <Step title="Add the key in Unreal Engine">
+    Open **Edit → Project Settings → Plugins → Node to Code → LLM Services → DeepSeek** and paste your key into the **API Key** field.
+  </Step>
+  <Step title="Select DeepSeek as your provider">
+    Under **Node to Code | LLM Provider**, set **Provider** to **DeepSeek**.
+  </Step>
+</Steps>
+
+## Model selection
+
+Set the model under **Node to Code | LLM Services | DeepSeek → DeepSeek Model**.
+
+| Display name | Model ID | Notes |
+|---|---|---|
+| DeepSeek R1 | `deepseek-reasoner` | **Default** — recommended |
+| DeepSeek V3 | `deepseek-chat` | Chat/instruction model |
+
+<Note>
+  **DeepSeek R1** (`deepseek-reasoner`) is a reasoning model — it performs an internal chain-of-thought before responding. This generally produces more accurate translations, especially for complex Blueprint logic.
+
+  **DeepSeek V3** (`deepseek-chat`) is a standard chat/instruction model. It responds faster and costs less per request, but may produce less thorough translations on intricate graphs.
+</Note>

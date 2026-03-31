@@ -1,0 +1,95 @@
+---
+title: "Installation"
+description: "Download and install Node to Code v1.2.2 for Unreal Engine on Windows or Mac."
+---
+
+<Info>
+  Node to Code v1.2.2 is an Editor-only plugin that runs on **Win64** and **Mac**. It is not included in packaged builds.
+</Info>
+
+## Download the plugin
+
+The latest release is available on the GitHub Releases page. Fab marketplace installations are handled through the Epic Games Launcher.
+
+<CardGroup cols={2}>
+
+<Card title="GitHub Releases" icon="github" href="https://github.com/protospatial/NodeToCode/releases">
+  Download the pre-built plugin zip directly. Recommended for manual installation.
+</Card>
+
+<Card title="Fab Marketplace" icon="store" href="https://www.fab.com/listings/29955a71-cd04-4111-ac43-6a0264429ce6">
+  Install through the Epic Games Launcher. Handles updates automatically.
+</Card>
+
+</CardGroup>
+
+## Install the plugin
+
+You can install Node to Code at the engine level (available to all projects) or at the project level (only for one project).
+
+<Steps>
+
+<Step title="Choose an install location">
+
+**Engine-level install** makes the plugin available to every project that uses that engine version.
+
+```
+UE_5.x/Engine/Plugins/Marketplace/NodeToCode/
+```
+
+**Project-level install** keeps the plugin scoped to a single project. Use this if you want to ship the plugin with your project or maintain per-project versions.
+
+```
+YourProject/Plugins/NodeToCode/
+```
+
+</Step>
+
+<Step title="Extract the plugin files">
+
+Unzip the downloaded archive and copy the `NodeToCode` folder to your chosen location. The folder structure should look like this:
+
+```
+NodeToCode/
+├── NodeToCode.uplugin
+├── Source/
+├── Resources/
+└── Content/
+```
+
+</Step>
+
+<Step title="Enable the plugin in the editor">
+
+1. Open your project in Unreal Editor.
+2. Go to **Edit** → **Plugins**.
+3. Search for **Node to Code**.
+4. Check the box to enable it.
+
+</Step>
+
+<Step title="Restart Unreal Editor">
+
+When prompted, click **Restart Now**. The plugin loads during the `PostEngineInit` phase and will be ready once the editor finishes starting up.
+
+</Step>
+
+</Steps>
+
+## Verify the installation
+
+After restarting, open any Blueprint in the Blueprint Editor. You should see a **Node to Code** button in the editor toolbar. If the button is not visible, confirm the plugin is enabled in **Edit** → **Plugins** and that you restarted the editor.
+
+## Unreal Engine compatibility
+
+<Warning>
+  Pre-built binaries from GitHub Releases are compiled for a specific engine version. Download the release that matches your installed version of Unreal Engine. If no pre-built binary exists for your version, you can compile from source by placing the plugin in your project's `Plugins/` directory and rebuilding the project.
+</Warning>
+
+## Next steps
+
+Once the plugin is installed, configure your LLM provider and run your first translation.
+
+<Card title="Quick start" icon="rocket" href="/quickstart">
+  Set up a provider and translate your first Blueprint.
+</Card>

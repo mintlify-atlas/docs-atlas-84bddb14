@@ -1,0 +1,92 @@
+---
+title: "Translating blueprints"
+description: "Translate Blueprint graphs to code using the Node to Code toolbar button."
+---
+
+Node to Code adds a button to the Blueprint Editor toolbar. Click it to send the current graph (or your selected nodes) to the configured LLM and receive a structured code translation in return.
+
+## Supported Blueprint types
+
+Node to Code works with all standard Blueprint types in Unreal Engine:
+
+<CardGroup cols={2}>
+  <Card title="Blueprint Class" icon="cube">
+    Standard Actor and Object blueprints — the most common Blueprint type.
+  </Card>
+  <Card title="Blueprint Macro Library" icon="layer-group">
+    Blueprints that contain reusable macros shared across other blueprints.
+  </Card>
+  <Card title="Blueprint Interface" icon="arrows-left-right">
+    Interface blueprints that define function signatures for other blueprints to implement.
+  </Card>
+  <Card title="Level Blueprint" icon="map">
+    Level-scoped scripting blueprints tied to a specific map.
+  </Card>
+  <Card title="Blueprint Function Library" icon="book">
+    Static function container blueprints for shared utility functions.
+  </Card>
+  <Card title="Const Blueprint Class" icon="lock">
+    Blueprints whose methods cannot modify member variables during execution.
+  </Card>
+</CardGroup>
+
+## Graph types
+
+Within each Blueprint, Node to Code can translate the following graph types:
+
+- **Event Graph** — the main event-driven graph
+- **Function** — user-created function graphs
+- **Macro** — macro graphs
+- **Composite** — collapsed graphs and composite nodes
+- **Construction Script** — the component construction graph
+- **Animation** — animation Blueprint graphs
+
+## How to translate
+
+<Steps>
+  <Step title="Open a Blueprint">
+    Open any Blueprint asset in the Blueprint Editor. Node to Code adds a button to the editor toolbar automatically.
+  </Step>
+  <Step title="Select nodes (optional)">
+    To translate only part of a graph, select the nodes you want. If nothing is selected, Node to Code translates the entire active graph.
+  </Step>
+  <Step title="Click the toolbar button">
+    Click the **Node to Code** button in the Blueprint Editor toolbar. This triggers `ExecuteCollectNodesForEditor`, which collects the relevant nodes and sends them to the LLM.
+  </Step>
+  <Step title="Wait for the response">
+    The plugin serializes your Blueprint graph to a compact JSON format and sends it to the configured LLM provider. Wait for the response — translation time depends on graph complexity and your provider.
+  </Step>
+  <Step title="Review the results">
+    The translation appears in the Node to Code panel. Review each output section (described below).
+  </Step>
+</Steps>
+
+## Understanding the output
+
+Each translated graph produces three sections:
+
+### Declaration
+
+The header-level code for the graph — function signatures, class declarations, and any types needed to use the implementation. In C++ output this maps to `.h` file content.
+
+### Implementation
+
+The full implementation code for the graph logic. In C++ output this maps to `.cpp` file content. This is the direct translation of your Blueprint nodes into the target language.
+
+### Implementation notes
+
+Plain-language explanations of key concepts and patterns in the translation. These notes explain *why* the code is structured the way it is, highlight Unreal Engine API details, and call out anything worth understanding before using the output.
+
+<Tip>
+  Implementation notes are especially useful when learning — they connect the visual Blueprint logic to the code concepts that represent it.
+</Tip>
+
+## Copying output
+
+Each section has a copy button. You can also use **Copy JSON** (also available in the toolbar via `ExecuteCopyJsonForEditor`) to copy the raw Blueprint JSON that was sent to the LLM — useful for debugging or sharing the serialized graph.
+
+## Tips
+
+- **Translate a selection, not the whole graph** when you only need a specific section of logic. This reduces token usage and keeps the output focused.
+- **Translate the whole graph** when you need a complete, self-contained implementation that handles all execution paths.
+- If a function calls sub-functions or macros you also want translated, use [Translation Depth](/guides/translation-depth) to pull those in automatically.
